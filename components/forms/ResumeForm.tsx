@@ -1,7 +1,11 @@
 "use client";
 
-import ExperienceForm from "./ExperienceForm";
 import { useResume } from "../context/ResumeContext";
+
+import ExperienceForm from "./ExperienceForm";
+import EducationForm from "./EducationForm";
+import ProjectForm from "./ProjectForm";
+import SkillsForm from "./SkillsForm";
 
 export default function ResumeForm() {
   const { resume, setResume } = useResume();
@@ -24,6 +28,15 @@ export default function ResumeForm() {
         />
 
         <input
+          value={resume.title}
+          onChange={(e) =>
+            setResume({ ...resume, title: e.target.value })
+          }
+          placeholder="Professional Title"
+          className="w-full rounded-lg border p-3"
+        />
+
+        <input
           value={resume.email}
           onChange={(e) =>
             setResume({ ...resume, email: e.target.value })
@@ -41,6 +54,42 @@ export default function ResumeForm() {
           className="w-full rounded-lg border p-3"
         />
 
+        <input
+          value={resume.address}
+          onChange={(e) =>
+            setResume({ ...resume, address: e.target.value })
+          }
+          placeholder="Address"
+          className="w-full rounded-lg border p-3"
+        />
+
+        <input
+          value={resume.linkedin}
+          onChange={(e) =>
+            setResume({ ...resume, linkedin: e.target.value })
+          }
+          placeholder="LinkedIn URL"
+          className="w-full rounded-lg border p-3"
+        />
+
+        <input
+          value={resume.github}
+          onChange={(e) =>
+            setResume({ ...resume, github: e.target.value })
+          }
+          placeholder="GitHub URL"
+          className="w-full rounded-lg border p-3"
+        />
+
+        <input
+          value={resume.portfolio}
+          onChange={(e) =>
+            setResume({ ...resume, portfolio: e.target.value })
+          }
+          placeholder="Portfolio Website"
+          className="w-full rounded-lg border p-3"
+        />
+
         <textarea
           value={resume.summary}
           onChange={(e) =>
@@ -51,7 +100,15 @@ export default function ResumeForm() {
         />
 
       </div>
+
       <ExperienceForm />
+
+      <EducationForm />
+
+      <ProjectForm />
+
+      <SkillsForm />
+
     </div>
   );
 }

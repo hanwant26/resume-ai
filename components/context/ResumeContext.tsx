@@ -10,15 +10,38 @@ export type Experience = {
   endDate: string;
   description: string;
 };
-
+export type Education = {
+  id: number;
+  school: string;
+  degree: string;
+  field: string;
+  startYear: string;
+  endYear: string;
+};
+export type Project = {
+  id: number;
+  title: string;
+  techStack: string;
+  description: string;
+  github: string;
+};
 type ResumeData = {
   name: string;
+  title: string;
   email: string;
   phone: string;
+  address: string;
+  linkedin: string;
+  github: string;
+  portfolio: string;
   summary: string;
-  experience: Experience[];
-};
 
+  experience: Experience[];
+  education: Education[];
+  projects: Project[];
+
+  skills: string[];
+};
 type ResumeContextType = {
   resume: ResumeData;
   setResume: React.Dispatch<React.SetStateAction<ResumeData>>;
@@ -31,14 +54,22 @@ export function ResumeProvider({
 }: {
   children: React.ReactNode;
 }) {
-  const [resume, setResume] = useState<ResumeData>({
-    name: "",
-    email: "",
-    phone: "",
-    summary: "",
-    experience: [],
-  });
+const [resume, setResume] = useState<ResumeData>({
+  name: "",
+  title: "",
+  email: "",
+  phone: "",
+  address: "",
+  linkedin: "",
+  github: "",
+  portfolio: "",
+  summary: "",
 
+  experience: [],
+  education: [],
+  projects: [],
+  skills: [],
+});
   return (
     <ResumeContext.Provider value={{ resume, setResume }}>
       {children}
