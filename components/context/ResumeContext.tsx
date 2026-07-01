@@ -1,6 +1,11 @@
 "use client";
 
-import { createContext, useContext, useState } from "react";
+import {
+  createContext,
+  useContext,
+  useEffect,
+  useState,
+} from "react";
 
 export type Experience = {
   id: number;
@@ -50,6 +55,14 @@ export type ResumeData = {
 type ResumeContextType = {
   resume: ResumeData;
   setResume: React.Dispatch<React.SetStateAction<ResumeData>>;
+
+  atsScore: number | null;
+  setAtsScore: React.Dispatch<React.SetStateAction<number | null>>;
+
+  jobMatchScore: number | null;
+  setJobMatchScore: React.Dispatch<
+    React.SetStateAction<number | null>
+  >;
 };
 
 const ResumeContext = createContext<ResumeContextType | null>(null);
@@ -69,18 +82,45 @@ export function ResumeProvider({
     github: "",
     portfolio: "",
     summary: "",
-
     experience: [],
-
     education: [],
-
     projects: [],
-
     skills: [],
   });
 
+  const [atsScore, setAtsScore] = useState<number | null>(null);
+
+  const [jobMatchScore, setJobMatchScore] =
+    useState<number | null>(null);
+
+  useEffect(() => {
+    const savedResume = localStorage.getItem("resumeData");
+
+    if (savedResume) {
+      setResume(JSON.parse(savedResume));
+    }
+  }, []);
+
+  useEffect(() => {
+    localStorage.setItem(
+      "resumeData",
+      JSON.stringify(resume)
+    );
+  }, [resume]);
+
   return (
-    <ResumeContext.Provider value={{ resume, setResume }}>
+    <ResumeContext.Provider
+      value={{
+        resume,
+        setResume,
+
+        atsScore,
+        setAtsScore,
+
+        jobMatchScore,
+        setJobMatchScore,
+      }}
+    >
       {children}
     </ResumeContext.Provider>
   );

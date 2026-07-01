@@ -1,29 +1,35 @@
+"use client";
+
+import { useRef } from "react";
+
 import Sidebar from "@/components/layout/Sidebar";
+import BuilderHeader from "@/components/layout/BuilderHeader";
+import DashboardCards from "@/components/dashboard/DashboardCards";
+
 import ResumeForm from "@/components/forms/ResumeForm";
 import ResumePreview from "@/components/preview/ResumePreview";
-import TemplateSelector from "@/components/TemplateSelector";
 
 export default function BuilderPage() {
+  const resumeRef = useRef<HTMLDivElement>(null);
+
   return (
-    <main className="grid min-h-screen grid-cols-12">
-      {/* Sidebar */}
-      <div className="col-span-2">
-        <Sidebar />
-      </div>
+    <main className="flex h-screen">
+      <Sidebar />
 
-      {/* Form */}
-      <div className="col-span-5 overflow-auto bg-gray-50 p-8">
-        <ResumeForm />
+      <div className="flex flex-1 flex-col">
+        <BuilderHeader resumeRef={resumeRef} />
 
-        {/* Template Selector */}
-        <div className="mt-10">
-          <TemplateSelector />
+        <DashboardCards />
+
+        <div className="grid flex-1 grid-cols-2 overflow-hidden">
+          <div className="overflow-y-auto bg-gray-50 p-8">
+            <ResumeForm />
+          </div>
+
+          <div className="overflow-y-auto bg-gray-100 p-8">
+            <ResumePreview ref={resumeRef} />
+          </div>
         </div>
-      </div>
-
-      {/* Preview */}
-      <div className="col-span-5 overflow-auto bg-gray-200 p-8">
-        <ResumePreview />
       </div>
     </main>
   );
