@@ -10,6 +10,7 @@ export type Experience = {
   endDate: string;
   description: string;
 };
+
 export type Education = {
   id: number;
   school: string;
@@ -18,14 +19,17 @@ export type Education = {
   startYear: string;
   endYear: string;
 };
+
 export type Project = {
   id: number;
   title: string;
   techStack: string;
   description: string;
   github: string;
+  liveDemo: string;
 };
-type ResumeData = {
+
+export type ResumeData = {
   name: string;
   title: string;
   email: string;
@@ -42,6 +46,7 @@ type ResumeData = {
 
   skills: string[];
 };
+
 type ResumeContextType = {
   resume: ResumeData;
   setResume: React.Dispatch<React.SetStateAction<ResumeData>>;
@@ -54,22 +59,26 @@ export function ResumeProvider({
 }: {
   children: React.ReactNode;
 }) {
-const [resume, setResume] = useState<ResumeData>({
-  name: "",
-  title: "",
-  email: "",
-  phone: "",
-  address: "",
-  linkedin: "",
-  github: "",
-  portfolio: "",
-  summary: "",
+  const [resume, setResume] = useState<ResumeData>({
+    name: "",
+    title: "",
+    email: "",
+    phone: "",
+    address: "",
+    linkedin: "",
+    github: "",
+    portfolio: "",
+    summary: "",
 
-  experience: [],
-  education: [],
-  projects: [],
-  skills: [],
-});
+    experience: [],
+
+    education: [],
+
+    projects: [],
+
+    skills: [],
+  });
+
   return (
     <ResumeContext.Provider value={{ resume, setResume }}>
       {children}
@@ -81,7 +90,9 @@ export function useResume() {
   const context = useContext(ResumeContext);
 
   if (!context) {
-    throw new Error("useResume must be used inside ResumeProvider");
+    throw new Error(
+      "useResume must be used inside ResumeProvider"
+    );
   }
 
   return context;

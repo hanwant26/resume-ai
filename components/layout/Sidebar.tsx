@@ -1,5 +1,7 @@
 "use client";
 
+import DownloadButton from "../DownloadButton";
+
 const sections = [
   "👤 Personal Info",
   "📝 Summary",
@@ -13,12 +15,14 @@ const sections = [
 
 export default function Sidebar() {
   return (
-    <aside className="h-screen bg-slate-900 text-white p-6">
-      <h1 className="text-3xl font-bold text-blue-400 mb-8">
+    <aside className="flex h-screen flex-col bg-slate-900 p-6 text-white">
+      {/* Logo */}
+      <h1 className="mb-8 text-3xl font-bold text-blue-400">
         ResumeAI
       </h1>
 
-      <div className="space-y-2">
+      {/* Navigation */}
+      <div className="flex-1 space-y-2">
         {sections.map((section) => (
           <button
             key={section}
@@ -27,6 +31,11 @@ export default function Sidebar() {
             {section}
           </button>
         ))}
+      </div>
+
+      {/* Download PDF */}
+      <div className="mt-8 border-t border-slate-700 pt-6">
+        <DownloadButton />
       </div>
     </aside>
   );
